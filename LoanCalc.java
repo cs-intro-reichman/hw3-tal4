@@ -61,12 +61,18 @@ public class LoanCalc {
         double low = loan / n; 
 		double high = loan;
 		double guess = (low + high) / 2;
-		double endBalance = endBalance(loan, rate, n, guess);
-		while(endBalance > epsilon || endBalance < (-1 * epsilon)) {
-			if(endBalance > epsilon)	low = guess;
-			else	high = guess;
+		double fLow = endBalance(loan, rate, n, low);
+		double fGuess = endBalance(loan, rate, n, guess);
+		while(high - low > epsilon) {
+			if(fGuess * fLow > 0) {
+				low = guess;
+				fLow = fGuess;
+			}
+			else {
+				high = guess;
+			}
 			guess = (low + high) / 2;
-			endBalance = endBalance(loan, rate, n, guess);
+			fGuess = endBalance(loan, rate, n, guess);
 			iterationCounter++;
 		}
 		return guess;
