@@ -59,7 +59,7 @@ public class LoanCalc {
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {
 		iterationCounter = 0;
         double low = loan / n; 
-		double high = loan * Math.pow(1 + (rate / 100), n) / n;
+		double high = loan;
 		double guess = (low + high) / 2;
 		double endBalance = endBalance(loan, rate, n, guess);
 		while(endBalance > epsilon || endBalance < (-1 * epsilon)) {
